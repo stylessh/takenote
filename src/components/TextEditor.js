@@ -71,52 +71,34 @@ const TextEditor = () => {
       onChange={handleNoteSave}
     >
       <Toolbar>
-        <Grid xs sm md={1} lg={1} xl={1}>
-          <MarkButton format="bold">
-            <Bold size="1.5em" />
-          </MarkButton>
-        </Grid>
-        <Grid xs sm md={1} lg={1} xl={1}>
-          <MarkButton format="italic">
-            <Italic size="1.5em" />
-          </MarkButton>
-        </Grid>
-        <Grid xs sm md={1} lg={1} xl={1}>
-          <MarkButton format="underline">
-            <Underline size="1.5em" />
-          </MarkButton>
-        </Grid>
-        <Grid xs sm md={1} lg={1} xl={1}>
-          <MarkButton format="code">
-            <Code size="1.5em" />
-          </MarkButton>
-        </Grid>
-        <Grid xs sm md={1} lg={1} xl={1}>
-          <BlockButton format="heading-one">
-            <H1 />
-          </BlockButton>
-        </Grid>
-        <Grid xs sm md={1} lg={1} xl={1}>
-          <BlockButton format="heading-two">
-            <H2 />
-          </BlockButton>
-        </Grid>
-        <Grid xs sm md={1} lg={1} xl={1}>
-          <BlockButton format="block-quote">
-            <Quote />
-          </BlockButton>
-        </Grid>
-        <Grid xs sm md={1} lg={1} xl={1}>
-          <BlockButton format="numbered-list">
-            <NumList />
-          </BlockButton>
-        </Grid>
+        <MarkButton format="bold">
+          <Bold size="1.5em" />
+        </MarkButton>
+        <MarkButton format="italic">
+          <Italic size="1.5em" />
+        </MarkButton>
+        <MarkButton format="underline">
+          <Underline size="1.5em" />
+        </MarkButton>
+        <MarkButton format="code">
+          <Code size="1.5em" />
+        </MarkButton>
+        <BlockButton format="heading-one">
+          <H1 />
+        </BlockButton>
+        <BlockButton format="heading-two">
+          <H2 />
+        </BlockButton>
+        <BlockButton format="block-quote">
+          <Quote />
+        </BlockButton>
+        <BlockButton format="numbered-list">
+          <NumList />
+        </BlockButton>
 
-        <Grid xs sm md={1} lg={1} xl={1}>
-          <BlockButton format="bulleted-list">
-            <List />
-          </BlockButton>
-        </Grid>
+        <BlockButton format="bulleted-list">
+          <List />
+        </BlockButton>
       </Toolbar>
 
       <Card contentEditable={false}>
@@ -141,9 +123,9 @@ const TextEditor = () => {
 
 const Menu = React.forwardRef(({ children, ...props }, ref) => (
   <Card width="100%">
-    <Grid.Container alignItems="center" justify="flex-start" gap={6}>
+    <div className="toolbar-content">
       {children}
-    </Grid.Container>
+    </div>
   </Card>
 ));
 

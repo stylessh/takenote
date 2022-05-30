@@ -1,0 +1,58 @@
+.header {
+  margin: 2em auto;
+  width: 90%;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.toolbar-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.toolbar-content div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.5em 0;
+
+  border-radius: 4px;
+}
+
+.toolbar-content div .text {
+  padding: 5px;
+}
+
+.toolbar-content > div:hover {
+  background-color: rgba(50, 145, 255, 0.2);
+}
+
+.toolbar-content > * {
+  margin-right: 1.5em;
+  text-align: center;
+}
+
+.toolbar-content .check > svg {
+  display: none !important;
+}
+
+@media screen and (max-width: 768px) {
+  .header .logo {
+    font-size: 2em;
+  }
+
+  .nav .theme {
+    display: none;
+  }
+}

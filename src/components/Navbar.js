@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Grid, Text, Link } from "@geist-ui/core";
+import { Button } from "@geist-ui/core";
 import { Sun, Moon } from "@geist-ui/icons";
 
 // Theme
@@ -19,20 +19,20 @@ const Navbar = () => {
   };
 
   return (
-    <Grid.Container gap={2} alignItems="center" justify="space-between">
+    <nav className="nav">
       <RouterLink to="/">
-        <h1 font="1em">Take Note</h1>
+        <h1 className="logo" font="1em">
+          Take Note
+        </h1>
       </RouterLink>
 
       {/* Change theme button */}
       <Button
         onClick={handleChangeTheme}
-        icon={theme === "light" ? <Sun /> : <Moon />}
+        iconRight={theme === "light" ? <Sun /> : <Moon />}
         auto
-      >
-        {theme === "light" ? "Light" : "Dark"}
-      </Button>
-    </Grid.Container>
+      />
+    </nav>
   );
 };
 

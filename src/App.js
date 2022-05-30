@@ -1,6 +1,6 @@
 import React from "react";
-import { GeistProvider, CssBaseline, Page } from "@geist-ui/core";
-
+import "./styles/globals.css";
+import { GeistProvider, CssBaseline } from "@geist-ui/core";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Index from "./pages";
@@ -16,19 +16,17 @@ const App = () => {
       <GeistProvider themeType={theme}>
         <CssBaseline />
 
-        <Page paddingTop={3} dotBackdrop>
-          <Page.Header>
-            <Navbar />
-          </Page.Header>
+        <header className="header">
+          <Navbar />
+        </header>
 
-          <Page.Content>
-            <Routes>
-              <Route path="/" element={<Index />} />
+        <main className="wrapper">
+          <Routes>
+            <Route path="/" element={<Index />} />
 
-              <Route path="/note/:id" element={<New />} />
-            </Routes>
-          </Page.Content>
-        </Page>
+            <Route path="/note/:id" element={<New />} />
+          </Routes>
+        </main>
       </GeistProvider>
     </Router>
   );

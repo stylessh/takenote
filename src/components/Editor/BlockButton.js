@@ -8,6 +8,7 @@ const BlockButton = ({ format, children }) => {
   return (
     <div>
       <Checkbox
+        className="check"
         value={format}
         checked={isBlockActive(editor, format)}
         onChange={() => toggleBlock(editor, format)}

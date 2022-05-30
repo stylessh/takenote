@@ -8,6 +8,7 @@ const MarkButton = ({ format, children }) => {
   return (
     <div>
       <Checkbox
+        className="check"
         checked={isMarkActive(editor, format)}
         onChange={() => toggleMark(editor, format)}
         style={{ lineHeight: 1 }}

@@ -2,11 +2,7 @@ import React from "react";
 import TextEditor from "../components/TextEditor";
 
 const New = () => {
-  return (
-    <>
-      <TextEditor />
-    </>
-  );
+  return <TextEditor />;
 };
 
 export default New;

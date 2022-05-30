@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 import { Button } from "@geist-ui/core";
 import { Sun, Moon } from "@geist-ui/icons";
@@ -6,7 +7,8 @@ import { Sun, Moon } from "@geist-ui/icons";
 // Theme
 import { saveTheme } from "../utils/theme";
 import useTheme from "../hooks/useTheme";
-import { Link as RouterLink } from "react-router-dom";
+
+import InstallButton from "./InstallButton";
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
@@ -27,11 +29,16 @@ const Navbar = () => {
       </RouterLink>
 
       {/* Change theme button */}
-      <Button
-        onClick={handleChangeTheme}
-        iconRight={theme === "light" ? <Sun /> : <Moon />}
-        auto
-      />
+      <div className="buttons">
+        <InstallButton />
+
+        <Button
+          style={{ marginLeft: "1em" }}
+          onClick={handleChangeTheme}
+          iconRight={theme === "light" ? <Sun /> : <Moon />}
+          auto
+        />
+      </div>
     </nav>
   );
 };

@@ -3,10 +3,13 @@ import "./styles/globals.css";
 import { GeistProvider, CssBaseline } from "@geist-ui/core";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Index from "./pages";
 import useTheme from "./hooks/useTheme";
-import Navbar from "./components/Navbar";
+
 import New from "./pages/note";
+import Index from "./pages";
+
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   const { theme } = useTheme();
@@ -27,6 +30,8 @@ const App = () => {
             <Route path="/note/:id" element={<New />} />
           </Routes>
         </main>
+
+        <Footer />
       </GeistProvider>
     </Router>
   );

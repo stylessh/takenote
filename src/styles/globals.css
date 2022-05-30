@@ -9,6 +9,11 @@
   align-items: center;
 }
 
+.nav .buttons {
+  display: flex;
+  align-items: center;
+}
+
 .wrapper {
   margin: 0 auto;
   width: 90%;
@@ -45,6 +50,20 @@
 
 .toolbar-content .check > svg {
   display: none !important;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: 2em auto;
+  width: 90%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @media screen and (max-width: 768px) {

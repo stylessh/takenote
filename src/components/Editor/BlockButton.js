@@ -10,10 +10,7 @@ const BlockButton = ({ format, children }) => {
       <Checkbox
         value={format}
         checked={isBlockActive(editor, format)}
-        onChange={(event) => {
-          //   event.preventDefault();
-          toggleBlock(editor, format);
-        }}
+        onChange={() => toggleBlock(editor, format)}
         style={{ lineHeight: 1 }}
       >
         {children}

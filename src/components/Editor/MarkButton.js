@@ -9,10 +9,7 @@ const MarkButton = ({ format, children }) => {
     <div>
       <Checkbox
         checked={isMarkActive(editor, format)}
-        onChange={(event) => {
-          //   event.preventDefault();
-          toggleMark(editor, format);
-        }}
+        onChange={() => toggleMark(editor, format)}
         style={{ lineHeight: 1 }}
       >
         {children}

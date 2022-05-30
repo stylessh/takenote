@@ -1,8 +1,15 @@
 import React, { useMemo, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { Card, Grid } from "@geist-ui/core";
-import { Bold, Italic, Underline, List, Code } from "@geist-ui/icons";
+import {
+  Bold,
+  Italic,
+  Underline,
+  List,
+  Code,
+  ArrowLeft,
+} from "@geist-ui/icons";
 
 // hotkeys
 import isHotkey from "is-hotkey";
@@ -64,48 +71,48 @@ const TextEditor = () => {
       onChange={handleNoteSave}
     >
       <Toolbar>
-        <Grid lg={1}>
+        <Grid xs sm md={1} lg={1} xl={1}>
           <MarkButton format="bold">
-            <Bold />
+            <Bold size="1.5em" />
           </MarkButton>
         </Grid>
-        <Grid lg={1}>
+        <Grid xs sm md={1} lg={1} xl={1}>
           <MarkButton format="italic">
-            <Italic />
+            <Italic size="1.5em" />
           </MarkButton>
         </Grid>
-        <Grid lg={1}>
+        <Grid xs sm md={1} lg={1} xl={1}>
           <MarkButton format="underline">
-            <Underline />
+            <Underline size="1.5em" />
           </MarkButton>
         </Grid>
-        <Grid lg={1}>
+        <Grid xs sm md={1} lg={1} xl={1}>
           <MarkButton format="code">
-            <Code />
+            <Code size="1.5em" />
           </MarkButton>
         </Grid>
-        <Grid lg={1}>
+        <Grid xs sm md={1} lg={1} xl={1}>
           <BlockButton format="heading-one">
             <H1 />
           </BlockButton>
         </Grid>
-        <Grid lg={1}>
+        <Grid xs sm md={1} lg={1} xl={1}>
           <BlockButton format="heading-two">
             <H2 />
           </BlockButton>
         </Grid>
-        <Grid lg={1}>
+        <Grid xs sm md={1} lg={1} xl={1}>
           <BlockButton format="block-quote">
             <Quote />
           </BlockButton>
         </Grid>
-        <Grid lg={1}>
+        <Grid xs sm md={1} lg={1} xl={1}>
           <BlockButton format="numbered-list">
             <NumList />
           </BlockButton>
         </Grid>
 
-        <Grid lg={1}>
+        <Grid xs sm md={1} lg={1} xl={1}>
           <BlockButton format="bulleted-list">
             <List />
           </BlockButton>
@@ -133,13 +140,35 @@ const TextEditor = () => {
 };
 
 const Menu = React.forwardRef(({ children, ...props }, ref) => (
-  <Card marginBottom={1}>
-    <Grid.Container>{children}</Grid.Container>
+  <Card width="100%">
+    <Grid.Container alignItems="center" justify="flex-start" gap={6}>
+      {children}
+    </Grid.Container>
   </Card>
 ));
 
-const Toolbar = React.forwardRef(({ className, ...props }, ref) => (
-  <Menu {...props} ref={ref} />
-));
+const Toolbar = React.forwardRef(({ className, ...props }, ref) => {
+  const navigate = useNavigate();
+
+  return (
+    <Grid.Container gap={2} marginBottom={1}>
+      <Grid xs sm md={22} lg={22} xl={22}>
+        <Menu {...props} ref={ref} />
+      </Grid>
+
+      {/* Go back button */}
+      <Grid xs={24} sm={24} md={2} lg={2} xl={2}>
+        <Card
+          hoverable
+          width="100%"
+          style={{ textAlign: "center", cursor: "pointer" }}
+          onClick={() => navigate("/")}
+        >
+          <ArrowLeft />
+        </Card>
+      </Grid>
+    </Grid.Container>
+  );
+});
 
 export default TextEditor;

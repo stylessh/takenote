@@ -19,6 +19,14 @@
   width: 90%;
 }
 
+.notes-list-item:hover .delete-button {
+  display: block !important;
+}
+
+.notes-list-item .delete-button {
+  display: none !important;
+}
+
 .toolbar-content {
   display: flex;
   flex-wrap: wrap;

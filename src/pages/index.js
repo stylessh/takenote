@@ -1,30 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Card, Grid, Page, Text } from "@geist-ui/core";
+import { Card, Grid, Input, Modal, Text, useModal } from "@geist-ui/core";
 import { Plus } from "@geist-ui/icons";
 
-import Navbar from "../components/Navbar";
-
 import { useNavigate } from "react-router-dom";
+import NotesList from "../components/NotesList";
+
+import { getNotes, setNotes } from "../utils/notes";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { setVisible, bindings } = useModal();
+  const [noteTitle, setNoteTitle] = useState("");
 
   const handleCreateNote = () => {
     // Get notes from local storage
-    const notes = JSON.parse(localStorage.getItem("notes")) || [];
+    const notes = getNotes();
 
     // Set new note to local storage array
     const newNote = {
-      title: "New Note",
-      content: [],
+      title: noteTitle || "Untitled Note",
+      // Default content
+      content: [
+        {
+          type: "paragraph",
+          children: [{ text: "Start writing here." }],
+        },
+      ],
       id: `note-${notes.length}`,
+      date: new Date().toLocaleString(),
     };
 
     notes.push(newNote);
 
     // Set notes to local storage
-    localStorage.setItem("notes", JSON.stringify(notes));
+    setNotes(notes);
+
+    // Close modal
+    setVisible(false);
 
     // Navigate to new note
     navigate(`/note/${newNote.id}`);
@@ -37,7 +50,7 @@ const Index = () => {
           <Card
             hoverable
             style={{ cursor: "pointer", width: "100%" }}
-            onClick={handleCreateNote}
+            onClick={() => setVisible(true)}
           >
             <Card.Content
               style={{ display: "flex", width: "100%", alignItems: "center" }}
@@ -45,11 +58,39 @@ const Index = () => {
               <Plus />
 
               <Text h6 style={{ margin: ".5em" }}>
-                Start a new note
+                Create a new note
               </Text>
             </Card.Content>
           </Card>
         </Grid>
+
+        {/* Modal */}
+        <Modal {...bindings}>
+          {/*header*/}
+
+          <Modal.Title>Create new note</Modal.Title>
+
+          <Modal.Content>
+            <Input
+              width="100%"
+              value={noteTitle}
+              onChange={(e) => setNoteTitle(e.target.value)}
+              htmlType="text"
+              placeholder="Note's name..."
+              onKeyDown={(e) => {
+                e.key === "Enter" && handleCreateNote();
+                e.key === "Escape" && setVisible(false);
+              }}
+              autoFocus
+            />
+          </Modal.Content>
+
+          {/*footer*/}
+          <Modal.Action passive onClick={() => setVisible(false)}>
+            Cancel
+          </Modal.Action>
+          <Modal.Action onClick={handleCreateNote}>Create</Modal.Action>
+        </Modal>
       </Grid.Container>
 
       <Text style={{ fontWeight: "bold" }} font="2em">
@@ -58,15 +99,7 @@ const Index = () => {
 
       {/* Grid list with empty blocks */}
 
-      <Grid.Container gap={2}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
-          <Grid xs={24} sm={12} md={8} lg={6} xl={6}>
-            <Card hoverable style={{ cursor: "pointer" }} width="100%">
-              <p>Test card</p>
-            </Card>
-          </Grid>
-        ))}
-      </Grid.Container>
+      <NotesList />
     </>
   );
 };

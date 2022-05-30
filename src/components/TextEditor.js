@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Card } from "@geist-ui/core";
 import { useParams } from "react-router-dom";
 
@@ -7,18 +7,14 @@ import { createEditor } from "slate";
 
 // Import the Slate components and React plugin.
 import { Slate, Editable, withReact } from "slate-react";
-
-// Define initial value.
-const initialValue = [];
+import { getNote, getNotes, setNotes } from "../utils/notes";
 
 const TextEditor = () => {
-  const editor = useMemo(() => withReact(createEditor()), []);
+  const [editor] = useState(withReact(createEditor()));
   const { id } = useParams();
 
   const currentNote = useMemo(() => {
-    const notes = JSON.parse(localStorage.getItem("notes")) || [];
-
-    return notes.find((note) => note.id === id);
+    return getNote(id);
   }, [id]);
 
   const handleNoteSave = (value) => {
@@ -28,27 +24,26 @@ const TextEditor = () => {
 
     if (isAstChange) {
       // Get notes from local storage
-      const notes = JSON.parse(localStorage.getItem("notes")) || [];
+      const notes = getNotes();
       const currentNote = notes.find((note) => note.id === id);
       currentNote.content = value;
 
+      // Update date
+      currentNote.date = new Date().toLocaleString();
+
       // Set notes to local storage
-      localStorage.setItem("notes", JSON.stringify(notes));
+      setNotes(notes);
     }
   };
 
   return (
     <Slate
       editor={editor}
-      value={currentNote.content || initialValue}
+      value={currentNote.content}
       onChange={handleNoteSave}
     >
-      <Card>
-        <Editable
-          style={{ width: "100%" }}
-          spellCheck
-          placeholder="Enter some rich text…"
-        />
+      <Card contentEditable={false}>
+        <Editable style={{ width: "100%" }} />
       </Card>
     </Slate>
   );

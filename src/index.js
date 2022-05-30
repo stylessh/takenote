@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import * as serviceWorkerRegistration from "./pwa/serviceWorkerRegistration";
-import reportWebVitals from "./utils/reportWebVitals";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import reportWebVitals from "./reportWebVitals";
 
 // Theme
 import { ThemeProvider } from "./context/themeContext";

@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { Card, Grid } from "@geist-ui/core";
+import { Button, Card, Grid } from "@geist-ui/core";
 import {
   Bold,
   Italic,
@@ -34,12 +34,19 @@ import H2 from "./Icons/H2";
 import Quote from "./Icons/Quote";
 import NumList from "./Icons/NumList";
 
+// AI
+import { getCompletion } from "../api/ai";
+
 const TextEditor = () => {
   const [editor] = useState(withReact(createEditor()));
   const { id } = useParams();
 
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
+
+  const [currentLine, setCurrentLine] = useState(0);
+  const [showCompletion, setShowCompletion] = useState(false);
+  const [completionAdded, setCompletionAdded] = useState(true);
 
   const currentNote = useMemo(() => {
     return getNote(id);
@@ -50,6 +57,23 @@ const TextEditor = () => {
       (op) => "set_selection" !== op.type
     );
 
+    // Show completion if the user is writing a question
+    const editorCurrentLine = value[editor.selection.focus.path[0]];
+    setCurrentLine(editorCurrentLine);
+
+    // Watch if writing a question with regex
+    const isQuestion = editorCurrentLine.children[0].text.includes("?");
+    const isMake =
+      editorCurrentLine.children[0].text.includes("make") ||
+      editorCurrentLine.children[0].text.includes("Make");
+
+    if (isQuestion || isMake) {
+      setShowCompletion(true);
+    } else {
+      setShowCompletion(false);
+    }
+
+    // Saving changes if writing
     if (isAstChange) {
       // Get notes from local storage
       const notes = getNotes();
@@ -62,6 +86,19 @@ const TextEditor = () => {
       // Set notes to local storage
       setNotes(notes);
     }
+  };
+
+  const handleGetCompletion = async () => {
+    setCompletionAdded(false);
+    const input = currentLine.children[0].text;
+    const response = await getCompletion(input);
+
+    const outputText = response.choices[0].text;
+
+    setCompletionAdded(true);
+
+    // Insert output text in the editor
+    editor.insertText(outputText);
   };
 
   return (
@@ -101,7 +138,7 @@ const TextEditor = () => {
         </BlockButton>
       </Toolbar>
 
-      <Card contentEditable={false}>
+      <Card style={{ position: "relative" }} contentEditable={false}>
         <Editable
           renderElement={renderElement}
           renderLeaf={renderLeaf}
@@ -116,6 +153,20 @@ const TextEditor = () => {
             }
           }}
         />
+
+        {showCompletion && (
+          <Button
+            loading={!completionAdded}
+            auto
+            pl={0}
+            pr={0}
+            mt={-1}
+            type="abort"
+            onClick={handleGetCompletion}
+          >
+            Get completion
+          </Button>
+        )}
       </Card>
     </Slate>
   );
@@ -123,9 +174,7 @@ const TextEditor = () => {
 
 const Menu = React.forwardRef(({ children, ...props }, ref) => (
   <Card width="100%">
-    <div className="toolbar-content">
-      {children}
-    </div>
+    <div className="toolbar-content">{children}</div>
   </Card>
 ));
 

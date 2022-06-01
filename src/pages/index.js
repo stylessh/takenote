@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import NotesList from "../components/NotesList";
 
 import { getNotes, setNotes } from "../utils/notes";
+import Footer from "../components/Footer";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -100,6 +101,8 @@ const Index = () => {
       {/* Grid list with empty blocks */}
 
       <NotesList />
+
+      <Footer />
     </>
   );
 };

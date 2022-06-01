@@ -8,7 +8,6 @@ import useTheme from "./hooks/useTheme";
 import New from "./pages/note";
 import Index from "./pages";
 
-import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 
 const App = () => {
@@ -30,8 +29,6 @@ const App = () => {
             <Route path="/note/:id" element={<New />} />
           </Routes>
         </main>
-
-        <Footer />
       </GeistProvider>
     </Router>
   );

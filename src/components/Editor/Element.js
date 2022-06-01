@@ -2,7 +2,7 @@ import React from "react";
 
 const Element = ({ attributes, children, element }) => {
   const style = { textAlign: element.align };
-  
+
   switch (element.type) {
     case "block-quote":
       return (

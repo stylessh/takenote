@@ -82,4 +82,11 @@
   .nav .theme {
     display: none;
   }
+
+  .footer {
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }

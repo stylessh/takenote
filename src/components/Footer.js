@@ -4,17 +4,16 @@ import React from "react";
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>TakeNote © 2021, All rights reserved.</p>
+      <p>
+        TakeNote © 2021, All rights reserved. Powered by{" "}
+        <Link block href="https://openai.com" target="_blank" rel="noreferrer">
+          OpenAI
+        </Link>.
+      </p>
 
       <p>
-        Created with {"<3"} by
-        <Link
-          block
-          style={{ marginLeft: ".2em" }}
-          href="https://stylessh.me"
-          target="_blank"
-          rel="noreferrer"
-        >
+        Created with {"<3"} by{" "}
+        <Link block href="https://stylessh.me" target="_blank" rel="noreferrer">
           stylessh
         </Link>
       </p>

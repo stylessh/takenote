@@ -13,7 +13,7 @@ const Footer = () => {
 
       <p>
         Created with {"<3"} by{" "}
-        <Link block href="https://stylessh.me" target="_blank" rel="noreferrer">
+        <Link block href="https://stylessh.dev" target="_blank" rel="noreferrer">
           stylessh
         </Link>
       </p>

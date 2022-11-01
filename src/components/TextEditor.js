@@ -142,7 +142,7 @@ const TextEditor = () => {
         <Editable
           renderElement={renderElement}
           renderLeaf={renderLeaf}
-          style={{ width: "100%" }}
+          style={{ width: "100%", height: "100%" }}
           onKeyDown={(event) => {
             for (const hotkey in HOTKEYS) {
               if (isHotkey(hotkey, event)) {
@@ -189,14 +189,15 @@ const Toolbar = React.forwardRef(({ className, ...props }, ref) => {
 
       {/* Go back button */}
       <Grid xs={24} sm={24} md={2} lg={2} xl={2}>
-        <Card
+        <Button
           hoverable
+          height="100%"
           width="100%"
           style={{ textAlign: "center", cursor: "pointer" }}
           onClick={() => navigate("/")}
         >
           <ArrowLeft />
-        </Card>
+        </Button>
       </Grid>
     </Grid.Container>
   );
